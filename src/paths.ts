@@ -8,6 +8,6 @@ export const accountProfilePath = () => '/account/profile';
 export const accountPasswordPath = () => '/account/password';
 
 export const tradingsPath = () => '/tradings';
-export const tradingPath = (tradingId: string) => `/trading/${tradingId}`;
+export const tradingPath = (tradingId: string) => `/tradings/${tradingId}`;
 export const tradingEditPath = (tradingId: string) =>
   `/trading/${tradingId}/edit`;

@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { Header } from './_navigation/header';
 import { Sidebar } from '@/app/_navigation/sidebar/components/sidebar';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { ReactQueryProvider } from '@/app/_providers/react-query/react-query-provider';
+import { ThemeProvider } from '@/components/theme/theme-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,19 +33,23 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NuqsAdapter>
-          <Header />
-          <div className="flex h-screen overflow-hidden border-collapse">
-            <Sidebar />
-            <main
-              className="min-h-screen flex-1
+          <ThemeProvider>
+            <ReactQueryProvider>
+              <Header />
+              <div className="flex h-screen overflow-hidden border-collapse">
+                <Sidebar />
+                <main
+                  className="min-h-screen flex-1
                 overflow-y-auto overflow-x-hidden
                 py-24 px-8
                 bg-secondary/20
                 flex flex-col"
-            >
-              {children}
-            </main>
-          </div>
+                >
+                  {children}
+                </main>
+              </div>
+            </ReactQueryProvider>
+          </ThemeProvider>
         </NuqsAdapter>
       </body>
     </html>
