@@ -5,14 +5,33 @@ import { cn } from '@/lib/utils';
 import { navItems } from '../constants';
 import { SidebarItem } from './sidebar-item';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/features/auth/hooks/use-auth';
+import { signInPath, signUpPath } from '@/paths';
+import { getActivePath } from '@/utils/get-active-path';
 
 const Sidebar = () => {
+  const { user, isFetched } = useAuth();
   const pathName = usePathname();
+
+  const { activeIndex } = getActivePath(
+    pathName,
+    navItems.map((navItem) => navItem.href),
+    [signInPath(), signUpPath()],
+  );
 
   const [isTransition, setTransition] = useState(false);
   const [isOpen, setOpen] = useState(false);
 
-  const activeIndex = 0;
+  const handleToggle = (open: boolean) => {
+    setTransition(true);
+    setOpen(open);
+    setTimeout(() => setTransition(false), 200);
+  };
+
+  if (!user || !isFetched) {
+    return <div className="w-[78px] bg-secondary/20" />;
+  }
+
   return (
     <nav
       className={cn(
@@ -21,6 +40,8 @@ const Sidebar = () => {
         isTransition && 'duration-200',
         isOpen ? 'md:w-60 w-[78px]' : 'w-[78px]',
       )}
+      onMouseEnter={() => handleToggle(true)}
+      onMouseLeave={() => handleToggle(false)}
     >
       <div className="px-3 py-2">
         <nav className="space-y-2">

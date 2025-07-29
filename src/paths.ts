@@ -10,4 +10,4 @@ export const accountPasswordPath = () => '/account/password';
 export const tradingsPath = () => '/tradings';
 export const tradingPath = (tradingId: string) => `/tradings/${tradingId}`;
 export const tradingEditPath = (tradingId: string) =>
-  `/trading/${tradingId}/edit`;
+  `/tradings/${tradingId}/edit`;

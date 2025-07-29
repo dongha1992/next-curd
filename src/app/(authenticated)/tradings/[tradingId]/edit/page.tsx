@@ -7,22 +7,24 @@ import { notFound } from 'next/navigation';
 import { TradingUpsertForm } from '@/features/trading/components/trading-upsert-form';
 
 type TradingEditPageProps = {
-  params: { tradingId: string };
+  params: Awaited<{ tradingId: string }>;
 };
 
 const TradingEditPage = async ({ params }: TradingEditPageProps) => {
   const { tradingId } = await params;
+
   const trading = await getTrading(tradingId);
   const isTradingFound = !!trading;
 
   if (!isTradingFound || !trading.isOwner) {
     notFound();
   }
+
   return (
     <div className="flex-1 flex flex-col gap-y-8">
       <Breadcrumbs
         breadcrumbs={[
-          { title: 'Tickets', href: homePath() },
+          { title: 'Tradings', href: homePath() },
           { title: trading.title, href: tradingPath(trading.id) },
           { title: 'Edit' },
         ]}

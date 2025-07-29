@@ -1,21 +1,49 @@
+'use client';
+
 import { Trading, TradingStatus } from '@prisma/client';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { TRADING_STATUS_LABELS } from '@/features/trading/constants';
+import { useConfirmDialog } from '@/components/confirm-dialog';
+import { LucideTrash } from 'lucide-react';
+import { deleteTrading } from '../actions/delete-trading';
+import { updateTradingStatus } from '../actions/update-trading-status';
+import { toast } from 'sonner';
 
 type TradingMoreMenuProps = {
   trading: Trading;
   trigger: React.ReactElement;
 };
 
-const TradingMoreMenu = ({ trading, trigger }: TradingMoreMenuProps) => {
-  const handleUpdateTradingStatus = () => {};
+const TradingMoreMenu = async ({ trading, trigger }: TradingMoreMenuProps) => {
+  const [deleteButton, deleteDialog] = useConfirmDialog({
+    action: deleteTrading.bind(null, trading.id),
+    trigger: (
+      <DropdownMenuItem>
+        <LucideTrash className="h-4 w-4" />
+        <span>삭제</span>
+      </DropdownMenuItem>
+    ),
+  });
+  const handleUpdateTradingStatus = async (value: string) => {
+    const promise = await updateTradingStatus(
+      trading.id,
+      value as TradingStatus,
+    );
+
+    if (promise.status === 'ERROR') {
+      toast.error(promise.message);
+    } else if (promise.status === 'SUCCESS') {
+      toast.success(promise.message);
+    }
+  };
 
   const tradingStatusRadioGroupItems = (
     <DropdownMenuRadioGroup

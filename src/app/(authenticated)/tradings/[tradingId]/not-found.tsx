@@ -9,7 +9,7 @@ export default function NotFound() {
       label="없는 페이지 입니다."
       button={
         <Button asChild variant="outline">
-          <Link href={tradingsPath()}>Go to Tickets</Link>
+          <Link href={tradingsPath()}>Go to Tradings</Link>
         </Button>
       }
     />

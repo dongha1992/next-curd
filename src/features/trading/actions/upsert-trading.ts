@@ -1,4 +1,4 @@
-// "use server";
+'use server';
 
 import {
   ActionState,
@@ -11,7 +11,8 @@ import { prisma } from '@/lib/prisma';
 import { isOwner } from '@/features/auth/utils/is-owner';
 import { setCookieByKey } from '@/actions/cookies';
 import { redirect } from 'next/navigation';
-import { tradingPath } from '@/paths';
+import { tradingPath, tradingsPath } from '@/paths';
+import { revalidatePath } from 'next/cache';
 
 const upsertTradingSchema = z.object({
   title: z.string().min(1).max(191),
@@ -56,13 +57,15 @@ export const upsertTrading = async (
       update: dbData,
       create: dbData,
     });
-
-    if (id) {
-      await setCookieByKey('toast', 'Trading updated');
-      redirect(tradingPath(id));
-    }
-    return toActionState('SUCCESS', 'Trading created');
   } catch (error) {
     return fromErrorToActionState(error, formData);
   }
+
+  revalidatePath(tradingsPath());
+
+  if (id) {
+    await setCookieByKey('toast', 'Trading updated');
+    redirect(tradingPath(id));
+  }
+  return toActionState('SUCCESS', 'Trading created');
 };

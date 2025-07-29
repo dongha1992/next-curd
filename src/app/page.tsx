@@ -6,6 +6,7 @@ import { SearchParams } from 'nuqs';
 type HomePageProps = {
   searchParams: Promise<SearchParams>;
 };
+// TODO: Suspense
 
 async function Home({ searchParams }: HomePageProps) {
   return (

@@ -15,6 +15,7 @@ type TradingPageProps = {
 
 const TradingPage = async ({ params }: TradingPageProps) => {
   const { tradingId } = params;
+
   const tradingPromise = getTrading(tradingId);
   const commentsPromise = getComments(tradingId);
 

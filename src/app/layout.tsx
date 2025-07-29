@@ -6,6 +6,7 @@ import { Sidebar } from '@/app/_navigation/sidebar/components/sidebar';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { ReactQueryProvider } from '@/app/_providers/react-query/react-query-provider';
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -48,6 +49,7 @@ export default function RootLayout({
                   {children}
                 </main>
               </div>
+              <Toaster expand />
             </ReactQueryProvider>
           </ThemeProvider>
         </NuqsAdapter>

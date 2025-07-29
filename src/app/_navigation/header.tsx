@@ -1,12 +1,16 @@
+'use client';
+
 import Link from 'next/link';
 import { AccountDropdown } from './account-dropdown';
 import { homePath, signInPath, signUpPath } from '@/paths';
 import { buttonVariants } from '@/components/ui/button';
 import { LucideKanban } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
+import { useAuth } from '@/features/auth/hooks/use-auth';
 
 const Header = () => {
-  const user = true;
+  const { user, isFetched } = useAuth();
+
   const navItems = user ? (
     <AccountDropdown user={user} />
   ) : (

@@ -26,7 +26,7 @@ const AccountDropdown = ({ user }: AccountDropdownProps) => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>내 계정</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href={accountProfilePath()}>
