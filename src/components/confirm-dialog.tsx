@@ -35,6 +35,7 @@ const useConfirmDialog = ({
   trigger,
   onSuccess,
 }: UseConfirmDialogArgs) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [actionState, formAction, isPending] = useActionState(
     action,
     EMPTY_ACTION_STATE,
@@ -46,11 +47,11 @@ const useConfirmDialog = ({
       onClick: () => setIsOpen((state) => !state),
     },
   );
+
   const toastRef = useRef<string | number | null>(null);
 
-  const [isOpen, setIsOpen] = useState(false);
-
   //TODO: 없을 때 테스트
+
   useEffect(() => {
     if (isPending) {
       toastRef.current = toast.loading('삭제중 ...');

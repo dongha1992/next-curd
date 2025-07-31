@@ -6,7 +6,7 @@ import { FieldError } from '@/components/form/field-error';
 import { useActionState } from 'react';
 import { EMPTY_ACTION_STATE } from '@/components/form/utils/to-action-state';
 import { createComment } from '../actions/create-comment';
-import { SubmitButton } from '@/components/submit-button';
+import { SubmitButton } from '@/components/form/submit-button';
 
 type CommentCreateFormProps = {
   tradingId: string;

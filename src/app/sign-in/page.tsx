@@ -14,14 +14,14 @@ const SignInPage = () => {
         footer={
           <>
             <Link className="text-sm text-muted-foreground" href={signUpPath()}>
-              No account yet?
+              회원가입 하기
             </Link>
 
             <Link
               className="text-sm text-muted-foreground"
               href={passwordForgotPath()}
             >
-              Forgot Password?
+              비밀번호 찾기
             </Link>
           </>
         }

@@ -32,16 +32,20 @@ const TradingMoreMenu = async ({ trading, trigger }: TradingMoreMenuProps) => {
       </DropdownMenuItem>
     ),
   });
-  const handleUpdateTradingStatus = async (value: string) => {
-    const promise = await updateTradingStatus(
-      trading.id,
-      value as TradingStatus,
-    );
 
-    if (promise.status === 'ERROR') {
-      toast.error(promise.message);
-    } else if (promise.status === 'SUCCESS') {
-      toast.success(promise.message);
+  const handleUpdateTradingStatus = async (value: string) => {
+    const promise = updateTradingStatus(trading.id, value as TradingStatus);
+
+    toast.promise(promise, {
+      loading: 'Updating status...',
+    });
+
+    const result = await promise;
+
+    if (result.status === 'ERROR') {
+      toast.error(result.message);
+    } else if (result.status === 'SUCCESS') {
+      toast.success(result.message);
     }
   };
 

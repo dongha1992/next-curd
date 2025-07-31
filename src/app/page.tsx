@@ -6,6 +6,7 @@ import { SearchParams } from 'nuqs';
 type HomePageProps = {
   searchParams: Promise<SearchParams>;
 };
+
 // TODO: Suspense
 
 async function Home({ searchParams }: HomePageProps) {
@@ -15,8 +16,9 @@ async function Home({ searchParams }: HomePageProps) {
         title="오늘 매매"
         description="수익을 당연하게 여기는 생각은 주가가 큰 폭으로 하락하면 확실하게 치유된다."
       />
-
+      {/*<Suspense fallback={<Spinner />}>*/}
       <TradingList searchParams={searchParamsCache.parse(await searchParams)} />
+      {/*</Suspense>*/}
     </div>
   );
 }

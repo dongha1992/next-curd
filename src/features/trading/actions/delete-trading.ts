@@ -28,6 +28,7 @@ export const deleteTrading = async (id: string) => {
   } catch (error) {
     return fromErrorToActionState(error);
   }
+
   revalidatePath(tradingsPath());
   await setCookieByKey('toast', 'Trading deleted');
   redirect(tradingsPath());
