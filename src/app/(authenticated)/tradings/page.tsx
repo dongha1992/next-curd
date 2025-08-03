@@ -1,5 +1,5 @@
 import { SearchParams } from 'nuqs';
-import { getAuth } from '@/features/auth/quries/get-auth';
+import { getAuth } from '@/features/auth/queries/get-auth';
 import { Heading } from '@/components/heading';
 import { searchParamsCache } from '@/features/trading/search-params';
 import { TradingList } from '@/features/trading/components/trading-list';

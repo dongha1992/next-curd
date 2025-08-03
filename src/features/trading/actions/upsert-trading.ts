@@ -5,7 +5,7 @@ import {
   fromErrorToActionState,
   toActionState,
 } from '@/components/form/utils/to-action-state';
-import { getAuthOrRedirect } from '../../auth/quries/get-auth-or-redirect';
+import { getAuthOrRedirect } from '@/features/auth/queries/get-auth-or-redirect';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { isOwner } from '@/features/auth/utils/is-owner';

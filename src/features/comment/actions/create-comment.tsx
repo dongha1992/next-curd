@@ -5,7 +5,7 @@ import {
   fromErrorToActionState,
   toActionState,
 } from '@/components/form/utils/to-action-state';
-import { getAuthOrRedirect } from '@/features/auth/quries/get-auth-or-redirect';
+import { getAuthOrRedirect } from '@/features/auth/queries/get-auth-or-redirect';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { tradingPath } from '@/paths';

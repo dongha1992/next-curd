@@ -1,7 +1,7 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { CardCompact } from '@/components/card-compact';
 import { Separator } from '@/components/ui/separator';
-import { getTrading } from '@/features/trading/queires/get-trading';
+import { getTrading } from '@/features/trading/queries/get-trading';
 import { homePath, tradingPath } from '@/paths';
 import { notFound } from 'next/navigation';
 import { TradingUpsertForm } from '@/features/trading/components/trading-upsert-form';

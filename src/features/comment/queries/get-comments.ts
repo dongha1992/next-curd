@@ -1,6 +1,6 @@
 'use server';
 
-import { getAuth } from '@/features/auth/quries/get-auth';
+import { getAuth } from '@/features/auth/queries/get-auth';
 import { prisma } from '@/lib/prisma';
 import { isOwner } from '@/features/auth/utils/is-owner';
 

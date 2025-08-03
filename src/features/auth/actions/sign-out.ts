@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { signInPath } from '@/paths';
-import { getAuth } from '@/features/auth/quries/get-auth';
+import { getAuth } from '@/features/auth/queries/get-auth';
 import { invalidateSession } from '@/lib/lucia';
 import { deleteSessionCookie } from '@/features/auth/utils/session-cookies';
 

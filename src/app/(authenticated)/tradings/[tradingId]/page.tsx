@@ -3,8 +3,8 @@ import { Separator } from '@/components/ui/separator';
 import { homePath } from '@/paths';
 import { TradingItem } from '@/features/trading/components/trading-item';
 import { Comments } from '@/features/comment/components/comment';
-import { getTrading } from '@/features/trading/queires/get-trading';
-import { getComments } from '@/features/comment/queires/get-comments';
+import { getTrading } from '@/features/trading/queries/get-trading';
+import { getComments } from '@/features/comment/queries/get-comments';
 import { notFound } from 'next/navigation';
 
 type TradingPageProps = {

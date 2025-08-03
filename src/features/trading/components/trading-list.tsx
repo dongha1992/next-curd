@@ -1,7 +1,7 @@
 import { Placeholder } from '@/components/placeholder';
 import { TradingItem } from '@/features/trading/components/trading-item';
 import { ParsedSearchParams } from '@/features/trading/search-params';
-import { getTradings } from '@/features/trading/queires/get-tradings';
+import { getTradings } from '@/features/trading/queries/get-tradings';
 import { TradingPagination } from './trading-pagination';
 import { TradingSearchInput } from './trading-search-input';
 import { TradingSortSelect } from '@/features/trading/components/trading-sort-select';

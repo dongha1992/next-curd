@@ -7,7 +7,7 @@ import {
 } from '@/components/form/utils/to-action-state';
 import z from 'zod';
 import { prisma } from '@/lib/prisma';
-import { generatePasswordResetLink } from '@/features/password/utils/generate-password-reset-link';
+import { inngest } from '@/lib/inngest';
 
 const passwordForgotSchema = z.object({
   email: z.string().min(1, { message: 'Is required' }).max(191).email(),
@@ -28,8 +28,13 @@ export const passwordForgot = async (
     if (!user) {
       return toActionState('SUCCESS', '없는 계정입니다.');
     }
-    const passwordResetLink = await generatePasswordResetLink(user.id);
-    console.log(passwordResetLink);
+
+    await inngest.send({
+      name: 'app/password.password-reset',
+      data: {
+        userId: user.id,
+      },
+    });
   } catch (error) {
     return fromErrorToActionState(error, formData);
   }

@@ -8,7 +8,7 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { CommentItem } from './comment-item';
 import { CommentDeleteButton } from './comment-delete-button';
-import { getComments } from '@/features/comment/queires/get-comments';
+import { getComments } from '@/features/comment/queries/get-comments';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
