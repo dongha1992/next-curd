@@ -9,6 +9,9 @@ export const accountPasswordPath = () => '/account/password';
 export const passwordForgotPath = () => '/password-forgot';
 export const passwordResetPath = () => '/password-reset';
 
+export const emailVerificationPath = () => '/email-verification';
+export const emailInvitationPath = () => '/email-invitation';
+
 export const tradingsPath = () => '/tradings';
 export const tradingPath = (tradingId: string) => `/tradings/${tradingId}`;
 export const tradingEditPath = (tradingId: string) =>

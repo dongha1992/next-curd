@@ -34,7 +34,7 @@ const TradingEditPage = async ({ params }: TradingEditPageProps) => {
 
       <div className="flex-1 flex flex-col justify-center items-center">
         <CardCompact
-          title="Edit Ticket"
+          title="Edit Trading"
           description="Edit an existing trading"
           className="w-full max-w-[420px] animate-fade-from-top"
           content={<TradingUpsertForm trading={trading} />}

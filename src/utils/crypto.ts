@@ -3,6 +3,7 @@ import {
   encodeBase32LowerCaseNoPadding,
   encodeHexLowerCase,
 } from '@oslojs/encoding';
+import { generateRandomString, RandomReader } from '@oslojs/crypto/random';
 
 export const generateRandomToken = () => {
   const bytes = new Uint8Array(20);
@@ -12,4 +13,16 @@ export const generateRandomToken = () => {
 
 export const hashToken = (token: string) => {
   return encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+};
+
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+const random: RandomReader = {
+  read(bytes) {
+    crypto.getRandomValues(bytes);
+  },
+};
+
+export const generateRandomCode = () => {
+  return generateRandomString(random, ALPHABET, 8);
 };

@@ -53,6 +53,7 @@ export const signUp = async (_actionState: ActionState, formData: FormData) => {
         passwordHash,
       },
     });
+
     const sessionToken = generateRandomToken();
     const session = await createSession(sessionToken, user.id);
 
