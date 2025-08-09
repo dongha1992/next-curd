@@ -16,3 +16,15 @@ export const tradingsPath = () => '/tradings';
 export const tradingPath = (tradingId: string) => `/tradings/${tradingId}`;
 export const tradingEditPath = (tradingId: string) =>
   `/tradings/${tradingId}/edit`;
+
+export const membershipsPath = (organizationId: string) =>
+  `/organization/${organizationId}/memberships`;
+export const invitationsPath = (organizationId: string) =>
+  `/organization/${organizationId}/invitations`;
+export const credentialsPath = (organizationId: string) =>
+  `/organization/${organizationId}/credentials`;
+export const subscriptionPath = (organizationId: string) =>
+  `/organization/${organizationId}/subscription`;
+
+export const organizationsPath = () => '/organization';
+export const organizationCreatePath = () => '/organization/create';

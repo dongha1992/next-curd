@@ -4,6 +4,7 @@ import { z } from 'zod';
 import {
   ActionState,
   fromErrorToActionState,
+  toActionState,
 } from '@/components/form/utils/to-action-state';
 import { getAuthOrRedirect } from '../queries/get-auth-or-redirect';
 import { setCookieByKey } from '@/actions/cookies';
@@ -11,6 +12,9 @@ import { redirect } from 'next/navigation';
 import { tradingsPath } from '@/paths';
 import { prisma } from '@/lib/prisma';
 import { validateEmailVerificationCode } from '../utils/validate-email-verification-code';
+import { generateRandomToken } from '@/utils/crypto';
+import { createSession } from '@/lib/lucia';
+import { setSessionCookie } from '../utils/session-cookies';
 
 const emailVerificationSchema = z.object({
   code: z.string().length(8),
@@ -36,6 +40,10 @@ export const emailVerification = async (
       code,
     );
 
+    if (!validCode) {
+      return toActionState('ERROR', '인증 코드를 다시 확인해주세요.');
+    }
+
     await prisma.session.deleteMany({
       where: { userId: user.id },
     });
@@ -44,6 +52,10 @@ export const emailVerification = async (
       where: { id: user.id },
       data: { emailVerified: true },
     });
+    const sessionToken = generateRandomToken();
+    const session = await createSession(sessionToken, user.id);
+
+    await setSessionCookie(sessionToken, session.expiresAt);
   } catch (error) {
     return fromErrorToActionState(error);
   }
