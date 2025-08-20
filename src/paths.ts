@@ -12,6 +12,10 @@ export const passwordResetPath = () => '/password-reset';
 export const emailVerificationPath = () => '/email-verification';
 export const emailInvitationPath = () => '/email-invitation';
 
+export const onboardingPath = () => '/onboarding';
+export const selectActiveOrganizationPath = () =>
+  '/onboarding/select-active-organization';
+
 export const tradingsPath = () => '/tradings';
 export const tradingPath = (tradingId: string) => `/tradings/${tradingId}`;
 export const tradingEditPath = (tradingId: string) =>

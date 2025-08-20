@@ -31,6 +31,7 @@ const OrganizationList = async ({ limitedAccess }: OrganizationListProps) => {
   const hasActive = organizations.some((organization) => {
     return organization.membershipByUser.isActive;
   });
+
   return (
     <Table>
       <TableHeader>
