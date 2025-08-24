@@ -26,7 +26,7 @@ export const upsertTrading = async (
   _actionState: ActionState,
   formData: FormData,
 ) => {
-  const { user } = await getAuthOrRedirect();
+  const { user, activeOrganization } = await getAuthOrRedirect();
 
   try {
     if (id) {
@@ -36,7 +36,7 @@ export const upsertTrading = async (
         },
       });
       if (!trading || !isOwner(user, trading)) {
-        return toActionState('ERROR', 'Not authorized');
+        return toActionState('ERROR', '권한이 없습니다.');
       }
     }
 
@@ -55,7 +55,7 @@ export const upsertTrading = async (
     await prisma.trading.upsert({
       where: { id: id || '' },
       update: dbData,
-      create: dbData,
+      create: { ...dbData, organizationId: activeOrganization!.id },
     });
   } catch (error) {
     return fromErrorToActionState(error, formData);
