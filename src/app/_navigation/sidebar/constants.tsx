@@ -1,5 +1,15 @@
-import { LucideBook, LucideCircleUser, LucideLibrary } from 'lucide-react';
-import { accountProfilePath, homePath, tradingsPath } from '@/paths';
+import {
+  LucideBook,
+  LucideBookCopy,
+  LucideCircleUser,
+  LucideLibrary,
+} from 'lucide-react';
+import {
+  accountProfilePath,
+  homePath,
+  tradingsPath,
+  tradingsByOrganizationPath,
+} from '@/paths';
 import { NavItem } from './types';
 
 export const navItems: NavItem[] = [
@@ -7,6 +17,11 @@ export const navItems: NavItem[] = [
     title: '모든 매매',
     icon: <LucideLibrary />,
     href: homePath(),
+  },
+  {
+    title: '우리의 매매',
+    icon: <LucideBookCopy />,
+    href: tradingsByOrganizationPath(),
   },
   {
     title: '내 매매',

@@ -4,6 +4,7 @@ import { LucideLoaderCircle, LucideLogOut } from 'lucide-react';
 import { useConfirmDialog } from '@/components/confirm-dialog';
 import { Button } from '@/components/ui/button';
 import { deleteMembership } from '../actions/delete-membership';
+import { useRouter } from 'next/navigation';
 
 type MembershipDeleteButtonProps = {
   userId: string;
@@ -14,6 +15,8 @@ const MembershipDeleteButton = ({
   userId,
   organizationId,
 }: MembershipDeleteButtonProps) => {
+  const router = useRouter();
+
   const [deleteButton, deleteDialog] = useConfirmDialog({
     action: deleteMembership.bind(null, {
       userId,
@@ -29,6 +32,9 @@ const MembershipDeleteButton = ({
           <LucideLogOut className="w-4 h-4" />
         </Button>
       ),
+    onSuccess: () => {
+      router.refresh();
+    },
   });
 
   return (

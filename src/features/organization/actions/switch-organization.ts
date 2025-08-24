@@ -50,6 +50,8 @@ export const switchOrganization = async (organizationId: string) => {
   } catch (error) {
     return fromErrorToActionState(error);
   }
+
   revalidatePath(organizationsPath());
+
   return toActionState('SUCCESS', '그룹을 활성화하였습니다.');
 };

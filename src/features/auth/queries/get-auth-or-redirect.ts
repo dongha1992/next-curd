@@ -42,6 +42,7 @@ export const getAuthOrRedirect = async (options?: GetAuthOrRedirectOptions) => {
     activeOrganization = organizations.find((organization) => {
       return organization.membershipByUser.isActive;
     });
+
     const hasActive = !!activeOrganization;
 
     if (checkActiveOrganization && !hasActive) {
