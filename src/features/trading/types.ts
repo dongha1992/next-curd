@@ -6,4 +6,4 @@ export type TradingWithMetadata = Prisma.TradingGetPayload<{
       select: { username: true };
     };
   };
-}> & { isOwner: boolean };
+}> & { isOwner: boolean; permissions: { canDeleteTrading: boolean } };

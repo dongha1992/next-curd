@@ -1,6 +1,7 @@
 import { getAuth } from '@/features/auth/queries/get-auth';
 import { prisma } from '@/lib/prisma';
 import { isOwner } from '@/features/auth/utils/is-owner';
+import { getTradingPermissions } from '@/features/trading/permissions/get-trading-permissions';
 
 export const getTrading = async (id: string) => {
   const { user } = await getAuth();
@@ -22,5 +23,16 @@ export const getTrading = async (id: string) => {
     return null;
   }
 
-  return { ...trading, isOwner: isOwner(user, trading) };
+  const permissions = await getTradingPermissions({
+    organizationId: trading.organizationId,
+    userId: user?.id,
+  });
+
+  return {
+    ...trading,
+    isOwner: isOwner(user, trading),
+    permissions: {
+      canDeleteTicket: isOwner(user, trading) && !!permissions.canDeleteTrading,
+    },
+  };
 };

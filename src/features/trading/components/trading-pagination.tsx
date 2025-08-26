@@ -2,7 +2,7 @@
 
 import { PaginatedData } from '@/types/pagination';
 import { TradingWithMetadata } from '@/features/trading/types';
-import { Pagination } from '@/components/pagination';
+import { Pagination } from '@/components/pagination/pagination';
 import { useQueryState, useQueryStates } from 'nuqs';
 import {
   paginationOptions,
