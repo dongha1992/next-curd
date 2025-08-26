@@ -1,5 +1,6 @@
 import { getAuth } from '@/features/auth/queries/get-auth';
 import { prisma } from '@/lib/prisma';
+import { getTradingPermissions } from '@/features/trading/permissions/get-trading-permissions';
 
 export const getActiveMembership = async () => {
   const { user } = await getAuth();

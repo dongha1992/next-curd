@@ -16,9 +16,10 @@ import { LucideTrash } from 'lucide-react';
 import { deleteTrading } from '../actions/delete-trading';
 import { updateTradingStatus } from '../actions/update-trading-status';
 import { toast } from 'sonner';
+import { TradingWithMetadata } from '@/features/trading/types';
 
 type TradingMoreMenuProps = {
-  trading: Trading;
+  trading: TradingWithMetadata;
   trigger: React.ReactElement;
 };
 
@@ -26,7 +27,7 @@ const TradingMoreMenu = async ({ trading, trigger }: TradingMoreMenuProps) => {
   const [deleteButton, deleteDialog] = useConfirmDialog({
     action: deleteTrading.bind(null, trading.id),
     trigger: (
-      <DropdownMenuItem>
+      <DropdownMenuItem disabled={!trading.permissions.canDeleteTrading}>
         <LucideTrash className="h-4 w-4" />
         <span>삭제</span>
       </DropdownMenuItem>

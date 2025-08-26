@@ -8,12 +8,18 @@ import { TradingSortSelect } from '@/features/trading/components/trading-sort-se
 
 type TradingListProps = {
   userId?: string;
+  byOrganization?: boolean;
   searchParams: ParsedSearchParams;
 };
 
-const TradingList = async ({ userId, searchParams }: TradingListProps) => {
+const TradingList = async ({
+  userId,
+  byOrganization = false,
+  searchParams,
+}: TradingListProps) => {
   const { list: tradings, metadata: tradingMetadata } = await getTradings(
     userId,
+    byOrganization,
     searchParams,
   );
 
