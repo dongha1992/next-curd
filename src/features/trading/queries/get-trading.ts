@@ -32,7 +32,8 @@ export const getTrading = async (id: string) => {
     ...trading,
     isOwner: isOwner(user, trading),
     permissions: {
-      canDeleteTicket: isOwner(user, trading) && !!permissions.canDeleteTrading,
+      canDeleteTrading:
+        isOwner(user, trading) && !!permissions.canDeleteTrading,
     },
   };
 };

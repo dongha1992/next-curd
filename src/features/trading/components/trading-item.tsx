@@ -24,10 +24,16 @@ import { TradingWithMetadata } from '@/features/trading/types';
 type TradingItemProps = {
   trading: TradingWithMetadata;
   isDetail?: boolean;
+  attachments?: React.ReactNode;
   comments?: React.ReactNode;
 };
 
-const TradingItem = ({ trading, isDetail, comments }: TradingItemProps) => {
+const TradingItem = ({
+  trading,
+  isDetail,
+  comments,
+  attachments,
+}: TradingItemProps) => {
   const detailButton = (
     <Button variant="outline" size="icon" asChild>
       <Link prefetch href={tradingPath(trading.id)}>
@@ -103,7 +109,7 @@ const TradingItem = ({ trading, isDetail, comments }: TradingItemProps) => {
           )}
         </div>
       </div>
-
+      {attachments}
       {comments}
     </div>
   );
