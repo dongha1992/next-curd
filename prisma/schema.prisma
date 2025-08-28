@@ -107,19 +107,40 @@ model Trading {
   comments       Comment[]
   organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String
+  attachments    Attachment[]
 
   @@index([userId])
   @@index([organizationId])
 }
 
+enum AttachmentEntity {
+  TRADING
+  COMMENT
+}
+
+model Attachment {
+  id   String @id @default(cuid())
+  name String
+
+  entity    AttachmentEntity
+  trading   Trading?         @relation(fields: [tradingId], references: [id], onDelete: Cascade)
+  tradingId String?
+  comment   Comment?         @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId String?
+
+  @@index([tradingId])
+  @@index([commentId])
+}
+
 model Comment {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  content   String   @db.VarChar(1024)
-  trading   Trading  @relation(fields: [tradingId], references: [id], onDelete: Cascade)
-  tradingId String
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId    String?
+  id         String       @id @default(cuid())
+  createdAt  DateTime     @default(now())
+  content    String       @db.VarChar(1024)
+  trading    Trading      @relation(fields: [tradingId], references: [id], onDelete: Cascade)
+  tradingId  String
+  user       User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId     String?
+  Attachment Attachment[]
 
   @@index([tradingId])
   @@index([userId])

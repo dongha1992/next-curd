@@ -2,10 +2,11 @@ import { Breadcrumbs } from '@/components/breadcrumbs';
 import { Separator } from '@/components/ui/separator';
 import { homePath } from '@/paths';
 import { TradingItem } from '@/features/trading/components/trading-item';
-import { Comments } from '@/features/comment/components/comment';
+import { Comments } from '@/features/comment/components/comments/comment';
 import { getTrading } from '@/features/trading/queries/get-trading';
 import { getComments } from '@/features/comment/queries/get-comments';
 import { notFound } from 'next/navigation';
+import { Attachments } from '@/features/attachments/components/attachments';
 
 type TradingPageProps = {
   params: {
@@ -41,6 +42,13 @@ const TradingPage = async ({ params }: TradingPageProps) => {
         <TradingItem
           trading={trading}
           isDetail
+          attachments={
+            <Attachments
+              entityId={trading.id}
+              entity="TRADING"
+              isOwner={trading.isOwner}
+            />
+          }
           comments={
             <Comments
               tradingId={trading.id}

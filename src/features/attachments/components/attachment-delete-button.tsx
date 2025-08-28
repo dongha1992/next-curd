@@ -1,38 +1,38 @@
 'use client';
 
 import { LucideLoaderCircle, LucideTrash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useConfirmDialog } from '@/components/confirm-dialog';
 import { Button } from '@/components/ui/button';
-import { deleteComment } from '../actions/delete-comment';
-import { useRouter } from 'next/navigation';
+import { deleteAttachment } from '../actions/delete-attachment';
 
-type CommentDeleteButtonProps = {
+type AttachmentDeleteButtonProps = {
   id: string;
-  onDeleteComment?: (id: string) => void;
+  onDeleteAttachment?: (id: string) => void;
 };
 
-const CommentDeleteButton = ({
+const AttachmentDeleteButton = ({
   id,
-  onDeleteComment,
-}: CommentDeleteButtonProps) => {
+  onDeleteAttachment,
+}: AttachmentDeleteButtonProps) => {
   const router = useRouter();
+
   const [deleteButton, deleteDialog] = useConfirmDialog({
-    action: deleteComment.bind(null, id),
+    action: deleteAttachment.bind(null, id),
     trigger: (isPending) => (
-      <Button variant="outline" size="icon">
+      <Button variant="ghost" size="xs">
         {isPending ? (
-          <LucideLoaderCircle className="w-4 h-4 animate-spin" />
+          <LucideLoaderCircle className="h-4 w-4 animate-spin" />
         ) : (
           <LucideTrash className="w-4 h-4" />
         )}
       </Button>
     ),
     onSuccess: () => {
+      onDeleteAttachment?.(id);
       router.refresh();
-      onDeleteComment?.(id);
     },
   });
-
   return (
     <>
       {deleteDialog}
@@ -41,4 +41,4 @@ const CommentDeleteButton = ({
   );
 };
 
-export { CommentDeleteButton };
+export { AttachmentDeleteButton };
