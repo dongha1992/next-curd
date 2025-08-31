@@ -1,6 +1,6 @@
 import { ActionState } from '@/components/form/utils/to-action-state';
 import { useActionFeedback } from '@/components/form/hooks/use-action-feedback';
-import { toast } from 'sonner';
+import { toast, ToastT } from 'sonner';
 
 type FormProps = {
   action: (payload: FormData) => void;
@@ -8,6 +8,7 @@ type FormProps = {
   children: React.ReactNode;
   onSuccess?: (actionState: ActionState) => void;
   onError?: (actionState: ActionState) => void;
+  toastOptions?: Omit<ToastT, 'id'> | undefined;
 };
 
 const Form = ({
@@ -16,11 +17,12 @@ const Form = ({
   children,
   onSuccess,
   onError,
+  toastOptions,
 }: FormProps) => {
   useActionFeedback(actionState, {
     onSuccess: ({ actionState }) => {
       if (actionState.message) {
-        toast.success(actionState.message);
+        toast.success(actionState.message, toastOptions);
       }
 
       onSuccess?.(actionState);

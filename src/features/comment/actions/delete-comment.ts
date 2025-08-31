@@ -9,7 +9,7 @@ import { prisma } from '@/lib/prisma';
 import { isOwner } from '@/features/auth/utils/is-owner';
 import { tradingPath } from '@/paths';
 import { revalidatePath } from 'next/cache';
-
+import * as tradingService from '@/features/trading/service';
 export const deleteComment = async (id: string) => {
   const { user } = await getAuthOrRedirect();
 
@@ -25,6 +25,8 @@ export const deleteComment = async (id: string) => {
     await prisma.comment.delete({
       where: { id },
     });
+
+    await tradingService.disconnectReferencedTradings(comment);
   } catch (error) {
     return fromErrorToActionState(error);
   }

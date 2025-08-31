@@ -7,6 +7,8 @@ import { useActionState } from 'react';
 import { EMPTY_ACTION_STATE } from '@/components/form/utils/to-action-state';
 import { createComment } from '../actions/create-comment';
 import { SubmitButton } from '@/components/form/submit-button';
+import { ACCEPTED } from '@/features/attachments/constants';
+import { Input } from '@/components/ui/input';
 
 type CommentCreateFormProps = {
   tradingId: string;
@@ -30,6 +32,15 @@ const CommentCreateForm = ({
     <Form action={action} actionState={actionState} onSuccess={handleSuccess}>
       <Textarea name="content" placeholder="매매에 대한 생각을 적어주세요." />
       <FieldError actionState={actionState} name="content" />
+
+      <Input
+        name="files"
+        id="files"
+        type="file"
+        multiple
+        accept={ACCEPTED.join(',')}
+      />
+      <FieldError actionState={actionState} name="files" />
       <SubmitButton label="Comment" />
     </Form>
   );

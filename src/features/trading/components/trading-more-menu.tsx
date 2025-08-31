@@ -1,6 +1,6 @@
 'use client';
 
-import { Trading, TradingStatus } from '@prisma/client';
+import { TradingStatus } from '@prisma/client';
 import {
   DropdownMenu,
   DropdownMenuContent,

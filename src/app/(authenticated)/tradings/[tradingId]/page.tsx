@@ -7,6 +7,7 @@ import { getTrading } from '@/features/trading/queries/get-trading';
 import { getComments } from '@/features/comment/queries/get-comments';
 import { notFound } from 'next/navigation';
 import { Attachments } from '@/features/attachments/components/attachments';
+import { ReferencedTradings } from '@/features/trading/components/referenced-tradings';
 
 type TradingPageProps = {
   params: {
@@ -49,6 +50,7 @@ const TradingPage = async ({ params }: TradingPageProps) => {
               isOwner={trading.isOwner}
             />
           }
+          referencedTradings={<ReferencedTradings tradingId={trading.id} />}
           comments={
             <Comments
               tradingId={trading.id}

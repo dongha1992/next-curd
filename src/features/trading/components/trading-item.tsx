@@ -25,6 +25,7 @@ type TradingItemProps = {
   trading: TradingWithMetadata;
   isDetail?: boolean;
   attachments?: React.ReactNode;
+  referencedTradings?: React.ReactNode;
   comments?: React.ReactNode;
 };
 
@@ -32,6 +33,7 @@ const TradingItem = ({
   trading,
   isDetail,
   comments,
+  referencedTradings,
   attachments,
 }: TradingItemProps) => {
   const detailButton = (
@@ -110,6 +112,7 @@ const TradingItem = ({
         </div>
       </div>
       {attachments}
+      {referencedTradings}
       {comments}
     </div>
   );

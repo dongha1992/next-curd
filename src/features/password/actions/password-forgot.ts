@@ -26,7 +26,7 @@ export const passwordForgot = async (
     });
 
     if (!user) {
-      return toActionState('SUCCESS', '없는 계정입니다.');
+      return toActionState('SUCCESS', '이메일로 링크를 발송했습니다.');
     }
 
     await inngest.send({

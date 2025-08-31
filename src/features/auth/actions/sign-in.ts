@@ -18,6 +18,7 @@ const signInSchema = z.object({
   email: z.string().min(1, { message: 'Is required' }).max(191).email(),
   password: z.string().min(6).max(191),
 });
+
 export const signIn = async (_actionState: ActionState, formData: FormData) => {
   try {
     const { email, password } = signInSchema.parse(
@@ -28,17 +29,18 @@ export const signIn = async (_actionState: ActionState, formData: FormData) => {
       where: { email },
     });
 
-    if (!user) {
-      return toActionState('ERROR', '계정 정보가 잘못되었습니다.', formData);
-    }
-    const validPassword = await verifyPasswordHash(user.passwordHash, password);
+    const validPassword = await verifyPasswordHash(
+      user ? user.passwordHash : '$argon',
+      password,
+    );
 
-    if (!validPassword) {
+    if (!user || !validPassword) {
       return toActionState('ERROR', '계정 정보가 잘못되었습니다.', formData);
     }
 
     const sessionToken = generateRandomToken();
     const session = await createSession(sessionToken, user.id);
+
     await setSessionCookie(sessionToken, session.expiresAt);
   } catch (error) {
     return fromErrorToActionState(error, formData);

@@ -1,5 +1,5 @@
-export const toCurrency = (amount: number) =>
+export const toCurrency = (amount: number, currency?: string) =>
   new Intl.NumberFormat('ko-KR', {
     style: 'currency',
-    currency: 'WON',
+    currency: currency ? currency : 'WON',
   }).format(amount);

@@ -18,13 +18,38 @@ model PasswordResetToken {
 }
 
 model Organization {
-  id          String       @id @default(cuid())
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  name        String
-  memberships Membership[]
-  tradings    Trading[]
-  invitations Invitation[]
+  id               String          @id @default(cuid())
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  name             String
+  memberships      Membership[]
+  tradings         Trading[]
+  invitations      Invitation[]
+  credential       Credential[]
+  stripeCustomerId String?
+  stripeCustomer   StripeCustomer?
+}
+
+model StripeCustomer {
+  organizationId     String                    @unique
+  organization       Organization              @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  customerId         String                    @unique
+  subscriptionId     String?
+  subscriptionStatus StripeSubscriptionStatus?
+  productId          String?
+  priceId            String?
+  eventAt            Int?
+}
+
+enum StripeSubscriptionStatus {
+  active
+  incomplete
+  incomplete_expired
+  past_due
+  canceled
+  unpaid
+  trialing
+  paused
 }
 
 enum InvitationStatus {
@@ -93,21 +118,35 @@ model Session {
   @@index([userId])
 }
 
-model Trading {
-  id             String        @id @default(cuid())
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  title          String
-  content        String        @db.VarChar(1024)
-  status         TradingStatus @default(OPEN)
-  deadline       String
-  bounty         Int
-  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId         String
-  comments       Comment[]
-  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+model Credential {
+  id             String       @id @default(cuid())
+  createdAt      DateTime     @default(now())
+  secretHash     String       @unique
+  name           String
+  lastUsed       DateTime?
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String
-  attachments    Attachment[]
+
+  @@index([organizationId])
+}
+
+model Trading {
+  id                  String        @id @default(cuid())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  title               String
+  content             String        @db.VarChar(1024)
+  status              TradingStatus @default(OPEN)
+  deadline            String
+  bounty              Int
+  user                User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              String
+  comments            Comment[]
+  organization        Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId      String
+  attachments         Attachment[]
+  referencedTradings  Trading[]     @relation("TradingReferences")
+  referencingTradings Trading[]     @relation("TradingReferences")
 
   @@index([userId])
   @@index([organizationId])
@@ -133,14 +172,14 @@ model Attachment {
 }
 
 model Comment {
-  id         String       @id @default(cuid())
-  createdAt  DateTime     @default(now())
-  content    String       @db.VarChar(1024)
-  trading    Trading      @relation(fields: [tradingId], references: [id], onDelete: Cascade)
-  tradingId  String
-  user       User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId     String?
-  Attachment Attachment[]
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  content     String       @db.VarChar(1024)
+  trading     Trading      @relation(fields: [tradingId], references: [id], onDelete: Cascade)
+  tradingId   String
+  user        User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId      String?
+  attachments Attachment[]
 
   @@index([tradingId])
   @@index([userId])

@@ -11,6 +11,7 @@ export const canResendVerificationEmail = async (userId: string) => {
   if (!databaseCode) {
     return true;
   }
+
   const diff = differenceInSeconds(
     new Date(),
     new Date(databaseCode.createdAt),

@@ -3,7 +3,6 @@ import { AttachmentList } from '@/features/attachments/components/attachment-lis
 import { CommentWithMetadata } from '../types';
 import { CommentDeleteButton } from './comment-delete-button';
 import { CommentItem } from './comment-item';
-import { AttachmentCreateButton } from '@/features/attachments/components/attachment-create-button';
 
 type CommentListProps = {
   comments: CommentWithMetadata[];
@@ -16,19 +15,10 @@ const CommentList = ({
   comments,
   onDeleteComment,
   onDeleteAttachment,
-  onCreateAttachment,
 }: CommentListProps) => {
   return (
     <>
       {comments.map((comment) => {
-        const attachmentCreateButton = (
-          <AttachmentCreateButton
-            key="0"
-            entityId={comment.id}
-            entity="COMMENT"
-            onCreateAttachment={onCreateAttachment}
-          />
-        );
         const commentDeleteButton = (
           <CommentDeleteButton
             key="0"
