@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { Card } from '@/components/ui/card';
 import { CommentWithMetadata } from '../types';
 import { Separator } from '@radix-ui/react-menu';
+import { Content } from '@/components/content';
 
 type CommentItemProps = {
   comment: CommentWithMetadata;

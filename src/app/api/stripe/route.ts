@@ -2,6 +2,7 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
+import * as stripeData from '@/features/stripe/data';
 
 const handleSubscriptionCreated = async (
   subscription: Stripe.Subscription,

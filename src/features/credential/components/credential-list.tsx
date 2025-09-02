@@ -4,11 +4,11 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { format } from 'date-fns';
 
 type CredentialListProps = {
   organizationId: string;

@@ -1,5 +1,5 @@
 import { getActiveOrganization } from '@/features/organization/queries/get-active-organization';
-import { Products } from '@/features/stripe/components/products';
+import { Products } from '@/features/stripe/components/product';
 
 const PricingPage = async () => {
   const activeOrganization = await getActiveOrganization();
